@@ -15,23 +15,43 @@ async function deleteItem(userCart, name) {
     
 }
 
-// -> remover um item do carrinho 
-async function removeItem(userCart, index) {
-    //transforma index visual do ususario
-    const deleteIndex = index - 1
+// // -> remover um item do carrinho 
+// async function removeItem(userCart, index) {
+//     //transforma index visual do ususario
+//     const deleteIndex = index - 1
 
-    if(index >= 0 && index < userCart.length){
-        userCart.splice(deleteIndex, 1);
+//     if(index >= 0 && index < userCart.length){
+//         userCart.splice(deleteIndex, 1);
+//     }
+// }
+
+
+//  ✅-> remover um item do carrinho 
+async function removeItem(userCart, item) {
+    //encontrar o indice do item 
+    const indexFound = userCart.findIndex((p)=>p.name === item.name)
+    
+    if(indexFound == -1){
+        console.log("item não encontrado");
+        return;
     }
-}
+    //removendo item 
+    if(userCart[indexFound].quantity > 1 ){
+        userCart[indexFound].quantity -= 1; 
+        return;
+    }
 
+    //deletando o ultimo item 
+    if(userCart[indexFound].quantity === 1){
+        userCart.splice(indexFound, 1); 
+    }}
 async function diplayCart(userCart) {
     console.log("\nShopee cart list: ")
     userCart.forEach((item, index) => {
         console.log(`${index + 1}. ${item.name} - R$ ${item.price} | ${item.quantity} | Subtotal = ${item.subTotal()} `)
     });
 }
-// -> calcular o total do carrinho 
+//  ✅ -> calcular o total do carrinho 
 async function calculateTotal(userCart) {
     console.log(`\nShopee total cart: `);
     const result =  userCart.reduce((total, item) => total + item.subTotal(), 0)
