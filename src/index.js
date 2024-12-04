@@ -11,7 +11,15 @@ const item2 = await createItem("torradeira", 53.70, 2)
 
 
 await cartService.addItem(myCart, item1);
-await cartService.addItem(myWhishList, item2);
+await cartService.addItem(myCart, item2);
 
-console.log("shopee cart Total is : ");
+await cartService.removeItem(myCart, 1)
+
+await cartService.diplayCart(myCart);
+
+// await cartService.deleteItem(myCart,item2.name);
+// await cartService.deleteItem(myCart,item1.name);
+
+
 await cartService.calculateTotal(myCart);
+
